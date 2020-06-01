@@ -10,20 +10,26 @@ import java.util.Map;
  * @createDate 2020/06/01
  */
 public class Student {
-	Map<String, String> cources;
-	List<Integer> grand;
-	public Map<String, String> getCources() {
+	Map<String, Course> cources;
+	List<Integer> report;
+	public Map<String, Course> getCources() {
 		return cources;
 	}
-	public void setCources(Map<String, String> cources) {
+	public void setCources(Map<String, Course> cources) {
 		this.cources = cources;
 	}
-	public List<Integer> getGrand() {
-		return grand;
+	public List<Integer> getReport() {
+		return report;
 	}
-	public void setGrand(List<Integer> grand) {
-		this.grand = grand;
+	public void setReport(List<Integer> report) {
+		this.report = report;
 	}
+	@Override
+	public String toString() {
+		return "Student [cources=" + cources + ", report=" + report + "]";
+	}
+	
+	
 	
 }
 

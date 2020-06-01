@@ -2,8 +2,18 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
+    
+    <!-- 简单头部
+    <beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans 
        http://www.springframework.org/schema/beans/spring-beans.xsd">
+     -->
     
 	<!-- 简单bean创建 -->
     <bean id="user" class="com.cym.model.User">
@@ -11,7 +21,7 @@
     
     <!-- set方法注入属性 -->
     <bean id="setInitUser" class="com.cym.model.User" p:gender="female">
-        <!-- p:属性名="属性值"   成为p名称空间注入-->
+        <!-- p:属性名="属性值"   成为p名称空间注入  注意要加入  xmlns:p="http://www.springframework.org/schema/p"  -->
         <!-- name为属性名 value为属性值 -->
         <property name="age" value="20"></property>
         <property name="name" value="set"></property>
@@ -65,20 +75,39 @@
         <property name="user.name" value="级联赋值2"></property>
     </bean>
     
-    <!-- set方法注入属性  集合    -->
-    <bean id="setInitStu" class="com.cym.model.Student">
+    <bean id="course1" class="com.cym.model.Course">
+        <constructor-arg name="cName" value="Chinese"></constructor-arg>
+        <constructor-arg name="tName" value="Chinese teacher name"></constructor-arg>
+    </bean>
+    <bean id="course2" class="com.cym.model.Course">
+        <constructor-arg name="cName" value="Math"></constructor-arg>
+        <constructor-arg name="tName" value="Math teacher name"></constructor-arg>
+    </bean>
+    <bean id="course3" class="com.cym.model.Course">
+        <constructor-arg name="cName" value="English"></constructor-arg>
+        <constructor-arg name="tName" value="English teacher name"></constructor-arg>
+    </bean>
+    
+    <!-- set方法对象注入集合      -->
+    <bean id="setInitStu1" class="com.cym.model.Student">
         <property name="cources">
             <map>
-                <entry key="aa" value="11"></entry>
+                <entry key="chinese">
+                    <ref bean="course1"/>
+                </entry>
+                <entry key="math">
+                    <ref bean="course2"/>
+                </entry>
+                <entry key="english">
+                    <ref bean="course3"/>
+                </entry>
             </map>
         </property>
-        <property name="grand">
+        <property name="report">
             <list>
                 <value>111</value>
                 <value>222</value>
             </list>
-            <array></array>
-            <set></set>
         </property>
         <!-- 
         <property name="arr">
@@ -95,4 +124,67 @@
         </property>
          -->
     </bean>
+    
+    <!-- 获取集合类型属性的注入 -->
+    <!-- 更改配置文件頭 
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="...
+    +   http://www.springframework.org/schema/util
+    +   http://www.springframework.org/schema/util/spring-util.xsd"
+     -->
+    <util:map id="courseMap">
+		<entry key="chinese">
+        	<ref bean="course1"/>
+        </entry>
+        <entry key="math">
+        	<ref bean="course2"/>
+        </entry>
+        <entry key="english">
+        	<ref bean="course3"/>
+        </entry>
+    </util:map>
+    
+    <util:list id="reportList">
+        <value>100</value>
+        <value>30</value>
+        <value>50</value>
+    </util:list>
+    
+    <!-- set方法注入外部集合      -->
+    <bean id="setInitStu2" class="com.cym.model.Student">
+        <property name="cources" ref="courseMap">
+        </property>
+        <property name="report" ref="reportList">
+        </property>
+    </bean>
+    
+    
+    
+    
+    <!-- 工厂bean 及作用域  -->
+    <bean id="mybean" class="com.cym.model.MyFactoryBean" scope="prototype">
+        <!-- 设置实例模型 scope="xx" 
+        	singleton(默认):单例,加载配置文件就创建实例  
+        	prototype:多实例,在调用获取方法时创建
+        	request:web请求
+        	session:web会话
+          -->
+    </bean>
+    
+    <!-- bean 生命周期 -->
+    <!-- 
+    1)创建
+	2)属性注入	
+	*)把实例传递到bean后置处理器的方法 postProcessBeforeInitialization()
+	3)初始化方法:init-method="selfInitMethod"
+	*)把实例传递到bean后置处理器的方法 postProcessAfterInitialization()
+	4)获取/使用	
+	5)容器关闭时,执行bean的销毁方法:destroy-method=""
+	
+	步骤 *) 需要设置后置处理器(MyBeanPost) 才能被使用到
+     -->
+	<bean id="lifecycle" class="com.cym.model.TestLifecycle" p:name="test set" init-method="selfInitMethod" destroy-method="selfDestroyMethod">
+    </bean>
+    <!-- 后置处理器自动加载 -->
+    <bean id="mypost" class="com.cym.model.MyBeanPost"></bean>
 </beans>

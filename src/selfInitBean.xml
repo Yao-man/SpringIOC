@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
+	
+    <!-- 自动装配对象 
+    	autowire="byName" 根据属性名称为id寻找对应的bean,找不到则设为null 
+    	autowire="byType" 根据属性类型为依据,寻找对应的bean,但该类型有唯一<bean />,否则报错:No qualifying bean of type 'com.cym.model.User' available: expected single matching bean but found 2: user1,user
+    -->
+    <bean id="phone" class="com.cym.model.Phone" autowire="byName">
+    </bean>
+    <bean id="user1" class="com.cym.model.User" p:gender="female">
+        <property name="age" value="20"></property>
+        <property name="name" value="set"></property>
+    </bean>
+    <bean id="user" class="com.cym.model.User" p:gender="male">
+        <property name="age" value="22"></property>
+        <property name="name" value="set"></property>
+    </bean>
+    
+</beans>
