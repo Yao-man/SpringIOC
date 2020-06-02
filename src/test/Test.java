@@ -4,10 +4,14 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.cym.dao.UserDao;
 import com.cym.model.Phone;
 import com.cym.model.Student;
 import com.cym.model.TestLifecycle;
 import com.cym.model.User;
+import com.cym.service.UserService;
+
+import jdk.nashorn.internal.objects.annotations.Constructor;
 
 /**
  * @description
@@ -107,8 +111,26 @@ public class Test {
 	
 	@org.junit.Test
 	public void testAutowireInitPhone() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("selfInitBean.xml");
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("selfInitBean.xml");
 		Phone p = context.getBean("phone", Phone.class);
 		System.out.println(p);
+		context.close();
+	}
+	
+
+	@org.junit.Test
+	public void testAutowireComment1() {
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("immitBean.xml");
+		UserDao dao = context.getBean("userDao", UserDao.class);
+		dao.test();
+		context.close();
+	}
+	
+	@org.junit.Test
+	public void testAutowireComment2() {
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("immitBean.xml");
+		UserService service = context.getBean("selfDefineName", UserService.class);
+		service.test();
+		context.close();
 	}
 }

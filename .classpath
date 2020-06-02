@@ -8,5 +8,7 @@
 	<classpathentry kind="lib" path="E:/apache-maven-3.6.2/repository/org/springframework/spring-expression/5.2.1.RELEASE/spring-expression-5.2.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="E:/apache-maven-3.6.2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="E:/apache-maven-3.6.2/repository/com/alibaba/druid/1.1.11/druid-1.1.11.jar"/>
+	<classpathentry kind="lib" path="E:/apache-maven-3.6.2/repository/org/springframework/spring-aop/5.2.1.RELEASE/spring-aop-5.2.1.RELEASE.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
