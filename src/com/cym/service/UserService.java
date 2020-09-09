@@ -1,5 +1,6 @@
 package com.cym.service;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 /** 
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Service;
  * @author Yaman
  * @createDate 2020/06/02
  */
-@Service(value = "selfDefineName")//自定义名称
+@Service(value = "selfDefineName")//自定义bean id="selfDefineName"
 public class UserService {
 
 	public void test() {
