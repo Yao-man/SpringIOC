@@ -33,7 +33,7 @@
 			    </bean>
 
       - **注入集合/自定义对象**
-			1. 嵌套bean / 内部bean
+	    1. 嵌套bean / 内部bean
 			<!-- 构造方法注入属性  注意:参数要写全 -->
 		    <bean id="constructorInitPhone" class="com.cym.model.Phone">
 		        <constructor-arg name="size" value="10"></constructor-arg>
@@ -48,14 +48,14 @@
 		        </property>
 		    </bean>
 
-			2. 外部bean
+	    2. 外部bean
 		    <!-- set方法注入属性   外部bean/级联赋值1   -->
 		    <bean id="setInitPhone" class="com.cym.model.Phone">
 		        <property name="user" ref="setInitUser">
 		        </property>
 		    </bean>
 
-			3. 级联
+		3. 级联
 		<!-- 构造方法注入属性  级联赋值2 -->
 	    <bean id="constructorInitPhone1" class="com.cym.model.Phone">
 	        <!-- name为属性名 value为属性值  -->
@@ -68,7 +68,7 @@
 	        <property name="user.name" value="级联赋值2"></property>
 	    </bean>
 
-			4. 集合注入
+		4. 集合注入
 			<!-- set方法注入属性  集合    -->
 		    <bean id="setInitStu" class="com.cym.model.Student">
 		        <property name="cources">
